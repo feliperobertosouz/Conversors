@@ -2,3 +2,7 @@ name: Conversors
 version: '1.0-SNAPSHOT'
 main: com.siegdev.conversors.Conversors
 api-version: '1.21'
+commands:
+  conversor:
+    description: Comando de exemplo para o plugin
+    usage: /<command>
