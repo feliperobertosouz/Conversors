@@ -53,7 +53,12 @@
                             <relocations>
                                 <relocation>
                                     <pattern>de.tr7zw.changeme.nbtapi</pattern>
-                                    <shadedPattern>com.siegdev.nbtapi</shadedPattern>
+                                    <shadedPattern>com.siegdev.conversors.nbtapi</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>com.google.gson</pattern>
+                                    <shadedPattern>com.siegdev.conversors.gson</shadedPattern>
                                 </relocation>
                             </relocations>
                             <filters>
@@ -98,8 +103,14 @@
         <!-- Item NBT API (para shading) -->
         <dependency>
             <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api-plugin</artifactId>
+            <artifactId>item-nbt-api</artifactId>
             <version>2.14.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
         </dependency>
     </dependencies>
 </project>
