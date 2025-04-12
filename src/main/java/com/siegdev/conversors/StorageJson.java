@@ -2,8 +2,11 @@ package com.siegdev.conversors;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StorageJson {
 
@@ -33,5 +36,33 @@ public class StorageJson {
         try (Reader reader = new FileReader(file)) {
             return gson.fromJson(reader, JsonObject.class);
         }
+    }
+
+    public List<Pair<String, String>> readAllRecipeJsons() {
+        List<Pair<String, String>> recipes = new ArrayList<>();
+        File folder = new File(plugin.getDataFolder(), "recipes");
+
+        if (!folder.exists() || !folder.isDirectory()) {
+            return recipes;
+        }
+
+        File[] files = folder.listFiles((dir, name) -> name.endsWith(".json"));
+        if (files == null) return recipes;
+
+        for (File file : files) {
+            try (FileReader reader = new FileReader(file)) {
+                JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+
+                if (json.has("input") && json.has("output")) {
+                    String input = json.get("input").getAsString();
+                    String output = json.get("output").getAsString();
+                    recipes.add(new Pair<>(input, output));
+                }
+            } catch (Exception e) {
+                plugin.getLogger().warning("Erro ao ler " + file.getName() + ": " + e.getMessage());
+            }
+        }
+
+        return recipes;
     }
 }
