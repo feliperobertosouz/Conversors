@@ -1,8 +1,9 @@
-package com.siegdev.conversors;
+package com.siegdev.conversors.configuration;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.siegdev.conversors.utils.Pair;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -38,8 +39,9 @@ public class StorageJson {
         }
     }
 
-    public List<Pair<String, String>> readAllRecipeJsons() {
-        List<Pair<String, String>> recipes = new ArrayList<>();
+    public List<Pair<String, Pair<String,String>>> readAllRecipeJsons() {
+        List<Pair<String, Pair<String,String>>> recipes = new ArrayList<>();
+
         File folder = new File(plugin.getDataFolder(), "recipes");
 
         if (!folder.exists() || !folder.isDirectory()) {
@@ -56,7 +58,9 @@ public class StorageJson {
                 if (json.has("input") && json.has("output")) {
                     String input = json.get("input").getAsString();
                     String output = json.get("output").getAsString();
-                    recipes.add(new Pair<>(input, output));
+                    var inputAndOutput = new Pair<String,String>(input,output);
+                    String fileName = file.getName().replace(".json", "");
+                    recipes.add(new Pair<>(fileName, inputAndOutput));
                 }
             } catch (Exception e) {
                 plugin.getLogger().warning("Erro ao ler " + file.getName() + ": " + e.getMessage());
@@ -64,5 +68,10 @@ public class StorageJson {
         }
 
         return recipes;
+    }
+
+    public boolean IsIdValid(String fileName) {
+        File file = new File(plugin.getDataFolder(), "recipes/" + fileName + ".json");
+        return !file.exists();
     }
 }

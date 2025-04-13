@@ -1,4 +1,4 @@
-package com.siegdev.conversors;
+package com.siegdev.conversors.utils;
 
 public class Pair<K, V> {
     public final K key;

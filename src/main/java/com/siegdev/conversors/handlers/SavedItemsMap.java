@@ -1,5 +1,8 @@
-package com.siegdev.conversors;
+package com.siegdev.conversors.handlers;
 
+import com.siegdev.conversors.configuration.Conversors;
+import com.siegdev.conversors.configuration.StorageJson;
+import com.siegdev.conversors.model.ConversorRecipe;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.Material;
@@ -9,11 +12,13 @@ import java.util.HashMap;
 
 public class SavedItemsMap {
 
-    HashMap<ItemStack, ItemStack> itemsConversor;
+    public HashMap<ItemStack, ItemStack> itemsConversor;
+    public HashMap<String, ConversorRecipe> recipes;
     private final StorageJson storageJson;
     public SavedItemsMap(StorageJson storageJson) {
         itemsConversor = new HashMap<>();
         this.storageJson = storageJson;
+        recipes = new HashMap<>();
     }
 
     public void reload()
@@ -22,20 +27,19 @@ public class SavedItemsMap {
         var recipes = storageJson.readAllRecipeJsons();
         Conversors.getInstance().getLogger().info("Carregando receitas");
 
-        for(Pair<String, String> pair : recipes)
+        for(var pair : recipes)
         {
-            ReadWriteNBT input = NBT.parseNBT(pair.key);
-            ReadWriteNBT output = NBT.parseNBT(pair.value);
+            String recipeId = pair.key;
+
+            ReadWriteNBT input = NBT.parseNBT(pair.value.key);
+            ReadWriteNBT output = NBT.parseNBT(pair.value.value);
             Conversors.getInstance().getLogger().info("INPUT: " + input + " | " + "OUPUT: " + output);
             ItemStack inputItem = NBT.itemStackFromNBT(input);
             ItemStack outputItem = NBT.itemStackFromNBT(output);
-
+            ConversorRecipe conversorRecipe = new ConversorRecipe(recipeId,inputItem,outputItem);
             itemsConversor.put(inputItem,outputItem);
+            this.recipes.put(recipeId,conversorRecipe);
         }
-    }
-
-    public void addItemPairToMap(ItemStack key,ItemStack result) {
-        itemsConversor.put(key,result);
     }
 
     public ItemStack getResult(ItemStack key) {
@@ -43,5 +47,9 @@ public class SavedItemsMap {
         if(result == null)
             return new ItemStack(Material.AIR);
         return result;
+    }
+
+    public ConversorRecipe getRecipeByRecipeName(String recipeId){
+        return recipes.get(recipeId);
     }
 }

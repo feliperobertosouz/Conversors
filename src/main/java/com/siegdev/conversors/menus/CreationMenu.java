@@ -1,19 +1,20 @@
-package com.siegdev.conversors;
+package com.siegdev.conversors.menus;
 
+import com.siegdev.conversors.utils.ItemBuilder;
+import com.siegdev.conversors.handlers.OpenedGuis;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
-public class MenuBuilder {
+public class CreationMenu implements  MenuPlugin{
 
     private final Inventory menu;
     private OpenedGuis openedGuis;
     private String recipeId = "indefinido";
     private ItemBuilder itemBuilder;
 
-    public MenuBuilder(OpenedGuis openedGuis, ItemBuilder itemBuilder){
+    public CreationMenu(OpenedGuis openedGuis, ItemBuilder itemBuilder){
         this.menu = Bukkit.createInventory(null,9,"criar conversor");
         this.openedGuis = openedGuis;
         menu.setItem(0,itemBuilder.buildItem(Material.PAPER,"Id "));
@@ -25,6 +26,12 @@ public class MenuBuilder {
         menu.setItem(8,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
     }
 
+    @Override
+    public Inventory getMenu() {
+        return this.menu;
+    }
+
+
     public void openMenu(Player player){
         player.openInventory(menu);
         var item = menu.getItem(0);
@@ -33,7 +40,6 @@ public class MenuBuilder {
         item.setItemMeta(meta);
         menu.setItem(0,item);
         openedGuis.add(player,this);
-
     }
 
     public void setRecipeId(String recipeId)
@@ -41,9 +47,13 @@ public class MenuBuilder {
         this.recipeId = recipeId;
     }
 
+    @Override
+    public void setInventory(Inventory inventory) {
+
+    }
+
     public String getRecipeId()
     {
         return this.recipeId;
     }
-
 }

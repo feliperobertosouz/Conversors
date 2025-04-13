@@ -1,0 +1,5 @@
+language: en
+items-adder: false
+items-adder-block-id: none
+defaultconversor.material: BREWING_STAND
+defaultconversor.name: Conversor

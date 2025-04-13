@@ -1,8 +1,21 @@
 name: Conversors
 version: '1.0-SNAPSHOT'
-main: com.siegdev.conversors.Conversors
+main: com.siegdev.conversors.configuration.Conversors
 api-version: '1.21'
 commands:
-  conversor:
+  conversor-creation:
     description: Comando de exemplo para o plugin
     usage: /<command>
+    permission: conversor.command.use
+  conversor-get:
+    description: get a default conversor of plugin
+    usage: /conversor-get
+    permission: conversor.command.get
+  conversor-reloadrecipes:
+    description: reload the recipes of conversor
+    usage: /conversor-reloadrecipes
+    permission: conversor.command.reloadrecipes
+  conversor-recipes:
+    description: see all recipes
+    usage: /conversor-recipes
+    permission: conversor.command.recipes

@@ -1,6 +1,11 @@
 # Conversors
+![conversors banner](imagesReadme/conversors-icon.png)
 
-##Pt-br
+![conversors banner](imagesReadme/conversos-banner.png)
+
+all credits to fxuy to images (discord contact: fxuyapenas)
+
+## Pt-br
 Conversors é meu primeiro plugin gratuito! ele é feito para servidores Spigot
 
 ## Versão do plugin
