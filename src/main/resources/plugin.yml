@@ -2,6 +2,7 @@ name: Conversors
 version: '1.0-SNAPSHOT'
 main: com.siegdev.conversors.Conversors
 api-version: '1.21'
+softdepend: [ItemsAdder]
 commands:
   conversor-creation:
     description: Comando de exemplo para o plugin

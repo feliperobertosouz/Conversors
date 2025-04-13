@@ -45,19 +45,25 @@ public final class Conversors extends JavaPlugin {
 
         getLogger().info("Loading Conversors plugin");
         saveDefaultConfig();
-        reloadConfig();
 
+        conversorReloadPlugin();
+
+
+        getLogger().info("CONVERSORS v1-SNAPSHOT");
+        getLogger().info(languageManager.getMessage("plugin.load"));
+
+
+
+    }
+
+    public void conversorReloadPlugin(){
+        reloadConfig();
         loadLanguage();
         checkDependencies();
         initItemBuilder();
         registerCore();
         registerListeners();
         registerCommands();
-
-
-
-        getLogger().info("CONVERSORS v1-SNAPSHOT");
-        getLogger().info(languageManager.getMessage("plugin.load"));
 
         boolean itemsAdderSup = this.getConfig().getBoolean("items-adder");
         getLogger().info(languageManager.getMessage("plugin.itemsadder") + itemsAdderSup);
@@ -123,7 +129,17 @@ public final class Conversors extends JavaPlugin {
 
     private void registerItemsAdderSupport()
     {
+
         getLogger().info("Loading itemsAdder support");
+        try {
+            Class<?> itemsAdderClass = Class.forName("dev.lone.itemsadder.api.ItemsAdder");
+            getLogger().info("Classe ItemsAdder encontrada!");
+
+            var furnitureId = this.getConfig().getString("items-adder-block-id", "none");
+            getServer().getPluginManager().registerEvents(new IAFurnitureInteractionListener(furnitureId,openedGuis,itemBuilder), this);
+        } catch (ClassNotFoundException e) {
+            getLogger().warning("ItemsAdder não está instalado ou a classe não existe.");
+        }
     }
 
 

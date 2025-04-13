@@ -18,6 +18,7 @@ public class ConversorReloadCommand implements CommandExecutor {
         conversors.reloadConfig();
         conversors.getLanguageManager().loadLanguage();
         conversors.getSavedItemsMap().reload();
+        conversors.conversorReloadPlugin();
         sender.sendMessage("plugin reloaded");
         return false;
     }
