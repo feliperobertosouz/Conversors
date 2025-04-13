@@ -1,7 +1,7 @@
 package com.siegdev.conversors.listeners;
 
 import com.siegdev.conversors.utils.ItemBuilder;
-import com.siegdev.conversors.LanguageManager;
+import com.siegdev.conversors.configuration.LanguageManager;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTBlock;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;

@@ -1,6 +1,6 @@
 name: Conversors
 version: '1.0-SNAPSHOT'
-main: com.siegdev.conversors.configuration.Conversors
+main: com.siegdev.conversors.Conversors
 api-version: '1.21'
 commands:
   conversor-creation:
@@ -19,3 +19,7 @@ commands:
     description: see all recipes
     usage: /conversor-recipes
     permission: conversor.command.recipes
+  conversor-reload:
+    description: reload the conversor plugin
+    usage: /conversor-reload
+    permission: conversor.command.reload

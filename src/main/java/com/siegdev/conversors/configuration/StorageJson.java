@@ -3,6 +3,7 @@ package com.siegdev.conversors.configuration;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.siegdev.conversors.Conversors;
 import com.siegdev.conversors.utils.Pair;
 
 import java.io.*;
@@ -73,5 +74,15 @@ public class StorageJson {
     public boolean IsIdValid(String fileName) {
         File file = new File(plugin.getDataFolder(), "recipes/" + fileName + ".json");
         return !file.exists();
+    }
+
+    public boolean deleteJson(String fileName) {
+        File file = new File(plugin.getDataFolder().getAbsolutePath(), "recipes/" + fileName + ".json");
+
+        if (file.exists()) {
+            return file.delete();
+        }
+
+        return false;
     }
 }

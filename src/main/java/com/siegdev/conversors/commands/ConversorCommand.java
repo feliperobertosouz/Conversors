@@ -1,6 +1,6 @@
 package com.siegdev.conversors.commands;
 
-import com.siegdev.conversors.*;
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.configuration.StorageJson;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;

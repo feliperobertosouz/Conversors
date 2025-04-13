@@ -1,6 +1,6 @@
-package com.siegdev.conversors;
+package com.siegdev.conversors.configuration;
 
-import com.siegdev.conversors.configuration.Conversors;
+import com.siegdev.conversors.Conversors;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

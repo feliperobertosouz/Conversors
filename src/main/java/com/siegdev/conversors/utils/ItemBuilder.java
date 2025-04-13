@@ -2,6 +2,7 @@ package com.siegdev.conversors.utils;
 
 import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemBuilder {
@@ -13,7 +14,7 @@ public class ItemBuilder {
         this.defaultConversor = buildDefaultConversor(materialDefaultConversor,nameDefaultConversor);
     }
 
-    public ItemStack buildItem(Material material, String name){
+    public static ItemStack buildItem(Material material, String name){
         var item = new ItemStack(material);
         var meta = item.getItemMeta();
         meta.setItemName(name);
@@ -37,5 +38,15 @@ public class ItemBuilder {
 
     public Material getDefaultConversorType(){
         return this.defaultConversor.getType();
+    }
+
+    public static void buildMenuTemplate(Inventory menu){
+        menu.setItem(0,buildItem(Material.PAPER,"Id "));
+        menu.setItem(2,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
+        menu.setItem(3,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
+        menu.setItem(4, buildItem(Material.LIME_STAINED_GLASS_PANE,"confirmar!!"));
+        menu.setItem(5,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
+        menu.setItem(6,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
+        menu.setItem(8,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
     }
 }

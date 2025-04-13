@@ -1,10 +1,8 @@
-package com.siegdev.conversors.configuration;
+package com.siegdev.conversors;
 
-import com.siegdev.conversors.LanguageManager;
-import com.siegdev.conversors.commands.ConversorCommand;
-import com.siegdev.conversors.commands.ConversorRecipesCommand;
-import com.siegdev.conversors.commands.ConversorReloadCommand;
-import com.siegdev.conversors.commands.GetConversorCommand;
+import com.siegdev.conversors.commands.*;
+import com.siegdev.conversors.configuration.LanguageManager;
+import com.siegdev.conversors.configuration.StorageJson;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.listeners.*;
@@ -29,6 +27,16 @@ public final class Conversors extends JavaPlugin {
     public static Conversors getInstance()
     {
         return instance;
+    }
+
+    public LanguageManager getLanguageManager()
+    {
+        return this.languageManager;
+    }
+
+    public SavedItemsMap getSavedItemsMap()
+    {
+        return  this.savedItemsMap;
     }
 
     @Override
@@ -95,21 +103,22 @@ public final class Conversors extends JavaPlugin {
         getLogger().info("Loading eventListeners");
         var chatListener = new ChatListener(this.openedGuis, languageManager);
         getServer().getPluginManager().registerEvents(chatListener,this);
-        getServer().getPluginManager().registerEvents(new CreationMenuListener(openedGuis,chatListener,storageJson,languageManager),this);
+        getServer().getPluginManager().registerEvents(new CreationMenuListener(openedGuis,chatListener,storageJson,languageManager,savedItemsMap),this);
         getServer().getPluginManager().registerEvents(chatListener,this);
         getServer().getPluginManager().registerEvents(new BlockListener(itemBuilder,languageManager), this);
         getServer().getPluginManager().registerEvents(new BlockInteractionListener(itemBuilder, openedGuis),this);
         getServer().getPluginManager().registerEvents(new ConvertMenuListener(openedGuis,savedItemsMap), this);
         getServer().getPluginManager().registerEvents(new RecipesMenuListener(openedGuis,savedItemsMap),this);
-        getServer().getPluginManager().registerEvents(new RecipeMenuViewListener(openedGuis),this);
+        getServer().getPluginManager().registerEvents(new RecipeMenuViewListener(openedGuis,storageJson, savedItemsMap),this);
     }
 
     private void registerCommands(){
         getLogger().info("Loading commands");
         getCommand("conversor-creation").setExecutor(new ConversorCommand(storageJson,savedItemsMap,openedGuis,itemBuilder,languageManager));
         getCommand("conversor-get").setExecutor(new GetConversorCommand(itemBuilder, languageManager));
-        getCommand("conversor-reloadrecipes").setExecutor(new ConversorReloadCommand(languageManager,savedItemsMap));
+        getCommand("conversor-reloadrecipes").setExecutor(new ConversorReloadRecipesCommand(languageManager,savedItemsMap));
         getCommand("conversor-recipes").setExecutor(new ConversorRecipesCommand(languageManager,savedItemsMap,openedGuis));
+        getCommand("conversor-reload").setExecutor(new ConversorReloadCommand(this));
     }
 
     private void registerItemsAdderSupport()

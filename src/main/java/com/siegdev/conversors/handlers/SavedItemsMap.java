@@ -1,6 +1,6 @@
 package com.siegdev.conversors.handlers;
 
-import com.siegdev.conversors.configuration.Conversors;
+import com.siegdev.conversors.Conversors;
 import com.siegdev.conversors.configuration.StorageJson;
 import com.siegdev.conversors.model.ConversorRecipe;
 import de.tr7zw.changeme.nbtapi.NBT;
@@ -24,6 +24,7 @@ public class SavedItemsMap {
     public void reload()
     {
         itemsConversor.clear();
+        recipes.clear();
         var recipes = storageJson.readAllRecipeJsons();
         Conversors.getInstance().getLogger().info("Carregando receitas");
 

@@ -1,7 +1,7 @@
 package com.siegdev.conversors.listeners;
 
-import com.siegdev.conversors.configuration.Conversors;
-import com.siegdev.conversors.LanguageManager;
+import com.siegdev.conversors.Conversors;
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

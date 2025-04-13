@@ -20,7 +20,7 @@ public class RecipeMenu implements MenuPlugin{
     public void loadItems(){
         int i = 0;
         for (var entry: savedItemsMap.recipes.entrySet()) {
-            ItemStack input = entry.getValue().getInput();
+            ItemStack input = entry.getValue().getInput().clone();
             var recipe = entry.getValue().getRecipeId();
 
             var meta = input.getItemMeta();

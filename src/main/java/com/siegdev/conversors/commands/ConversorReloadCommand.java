@@ -1,27 +1,24 @@
 package com.siegdev.conversors.commands;
 
-import com.siegdev.conversors.LanguageManager;
-import com.siegdev.conversors.handlers.SavedItemsMap;
+import com.siegdev.conversors.Conversors;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class ConversorReloadCommand implements CommandExecutor {
+    private final Conversors conversors;
 
-    private final LanguageManager languageManager;
-    private final SavedItemsMap savedItemsMap;
-
-    public ConversorReloadCommand(LanguageManager languageManager, SavedItemsMap savedItemsMap){
-        this.savedItemsMap = savedItemsMap;
-        this.languageManager = languageManager;
+    public ConversorReloadCommand(Conversors conversors){
+        this.conversors = conversors;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
-            savedItemsMap.reload();
-            sender.sendMessage(languageManager.getMessage("command.reloadrecipes"));
-            return true;
+        conversors.reloadConfig();
+        conversors.getLanguageManager().loadLanguage();
+        conversors.getSavedItemsMap().reload();
+        sender.sendMessage("plugin reloaded");
+        return false;
     }
-
-
 }

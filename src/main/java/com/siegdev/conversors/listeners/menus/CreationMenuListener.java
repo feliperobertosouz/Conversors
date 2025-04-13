@@ -1,9 +1,10 @@
 package com.siegdev.conversors.listeners.menus;
 
 import com.google.gson.JsonObject;
-import com.siegdev.conversors.LanguageManager;
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.configuration.StorageJson;
+import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.listeners.ChatListener;
 import com.siegdev.conversors.menus.CreationMenu;
 import de.tr7zw.changeme.nbtapi.NBT;
@@ -21,13 +22,15 @@ public class CreationMenuListener implements Listener {
     private final ChatListener chatListener;
     private final StorageJson storageJson;
     private final LanguageManager languageManager;
+    private final SavedItemsMap savedItemsMap;
 
-    public CreationMenuListener(OpenedGuis openedGuis, ChatListener chatListener, StorageJson storageJson, LanguageManager languageManager)
+    public CreationMenuListener(OpenedGuis openedGuis, ChatListener chatListener, StorageJson storageJson, LanguageManager languageManager, SavedItemsMap savedItemsMap)
     {
         this.openedGuis = openedGuis;
         this.chatListener = chatListener;
         this.storageJson = storageJson;
         this.languageManager = languageManager;
+        this.savedItemsMap = savedItemsMap;
     }
 
     @EventHandler
@@ -89,10 +92,6 @@ public class CreationMenuListener implements Listener {
                 return;
             }
 
-            if(!storageJson.IsIdValid(recipeId)){
-                player.sendMessage(languageManager.getMessage("creation.id.alredyexists"));
-            }
-
             var json = new JsonObject();
             json.addProperty("input",nbtInput.toString());
             json.addProperty("output",nbtOutput.toString());
@@ -102,6 +101,7 @@ public class CreationMenuListener implements Listener {
                 player.sendMessage(languageManager.getMessage("creation.success"));
                 openedGuis.remove(player);
                 player.closeInventory();
+                savedItemsMap.reload();
             } catch (IOException e) {
                 player.sendMessage(languageManager.getMessage("creation.fail"));
                 throw new RuntimeException("erro ao salvar receita " + e);

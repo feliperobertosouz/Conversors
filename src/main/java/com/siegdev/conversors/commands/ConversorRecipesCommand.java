@@ -1,6 +1,6 @@
 package com.siegdev.conversors.commands;
 
-import com.siegdev.conversors.LanguageManager;
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.menus.RecipeMenu;

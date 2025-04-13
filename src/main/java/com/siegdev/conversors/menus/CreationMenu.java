@@ -1,5 +1,6 @@
 package com.siegdev.conversors.menus;
 
+import com.siegdev.conversors.model.ConversorRecipe;
 import com.siegdev.conversors.utils.ItemBuilder;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import org.bukkit.Bukkit;
@@ -12,18 +13,24 @@ public class CreationMenu implements  MenuPlugin{
     private final Inventory menu;
     private OpenedGuis openedGuis;
     private String recipeId = "indefinido";
+
     private ItemBuilder itemBuilder;
 
     public CreationMenu(OpenedGuis openedGuis, ItemBuilder itemBuilder){
         this.menu = Bukkit.createInventory(null,9,"criar conversor");
         this.openedGuis = openedGuis;
-        menu.setItem(0,itemBuilder.buildItem(Material.PAPER,"Id "));
-        menu.setItem(2,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
-        menu.setItem(3,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
-        menu.setItem(4, itemBuilder.buildItem(Material.LIME_STAINED_GLASS_PANE,"confirmar!!"));
-        menu.setItem(5,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
-        menu.setItem(6,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
-        menu.setItem(8,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
+        ItemBuilder.buildMenuTemplate(menu);
+    }
+
+    public CreationMenu(OpenedGuis openedGuis, ConversorRecipe recipe)
+    {
+        this.menu = Bukkit.createInventory(null,9,"criar conversor");
+        this.openedGuis = openedGuis;
+        ItemBuilder.buildMenuTemplate(menu);
+        menu.setItem(1,recipe.getInput());
+        menu.setItem(7,recipe.getOutput());
+        this.recipeId = recipe.getRecipeId();
+
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.siegdev.conversors.commands;
 
 import com.siegdev.conversors.utils.ItemBuilder;
-import com.siegdev.conversors.LanguageManager;
+import com.siegdev.conversors.configuration.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
