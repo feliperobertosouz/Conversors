@@ -53,7 +53,12 @@
                             <relocations>
                                 <relocation>
                                     <pattern>de.tr7zw.changeme.nbtapi</pattern>
-                                    <shadedPattern>com.siegdev.nbtapi</shadedPattern>
+                                    <shadedPattern>com.siegdev.conversors.nbtapi</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>com.google.gson</pattern>
+                                    <shadedPattern>com.siegdev.conversors.gson</shadedPattern>
                                 </relocation>
                             </relocations>
                             <filters>
@@ -68,21 +73,53 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- ANT-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-plugin-to-server</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy
+                                    file="${project.build.directory}/${project.build.finalName}.jar"
+                                    todir="C:\Users\Felipe\Desktop\Codigos\Servidor 1.21.1\plugins"
+                                    overwrite="true" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <repositories>
+        <!--  SPIGOT      -->
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <!-- Sonatype -->
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <!-- nbtapi -->
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
+        <!-- itemsAdder -->
+        <repository>
+            <id>matteodev</id>
+            <url>https://maven.devs.beer/</url>
         </repository>
     </repositories>
 
@@ -98,8 +135,24 @@
         <!-- Item NBT API (para shading) -->
         <dependency>
             <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api-plugin</artifactId>
+            <artifactId>item-nbt-api</artifactId>
             <version>2.14.1</version>
+        </dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+
+        <!-- ItemsAdder -->
+        <dependency>
+            <groupId>dev.lone</groupId>
+            <artifactId>api-itemsadder</artifactId>
+            <!-- Replace {version} with the latest version -->
+            <version>4.0.9</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
