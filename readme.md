@@ -1,29 +1,29 @@
-# Conversors
-![conversors banner](imagesReadme/conversors-icon.png)
+# Conversors Plugin
 
+![conversors icon](imagesReadme/conversors-icon.png)  
 ![conversors banner](imagesReadme/conversos-banner.png)
 
-all credits to fxuy to images (discord contact: fxuyapenas)
+Welcome to **Conversors**, a free and easy-to-use plugin for Spigot servers.  
+With it, you can create custom item conversion systems using intuitive in-game menus and a special block.
 
-## Pt-br
-Conversors é meu primeiro plugin gratuito! ele é feito para servidores Spigot
-Ele permite você com um bloco especial abrir um menu onde pode converter um X item em outro, essas conversões são 
-criadas a partir de menus ingame.
+## 🌐 Available Languages
 
+- 🇧🇷 [Leia a documentação em Português](./wikipt.md)
+- 🇺🇸 [Read the documentation in English](./wikien.md)
 
-## Versão do plugin
-1.21
+## 📌 Plugin Info
 
-## Dependendencias
-Não possui dependencias
-Possui suporte para itemsAdder
+- **Version:** 1.21
+- **Supports:** ItemsAdder
+- **Made for:** Spigot (Minecraft)
 
-## ItemsAdder support
-no arquivo config.yml na pasta do plugin, coloque a opção item-adder: true e após isso coloque em items-adder-block-id 
-o id da furniture/bloco que será o seu conversor.
-Se o seu servidor não possuir o itemsAdder essa config não surtira efeito
+## 🧊 Features
 
-## Criando receitas
-para criar uma receita use o comando /conversor-createrecipe, coloque os itens e informações no menu
-após confirm use /conversor-reloadrecipes para recarregar as receitas necessarias
+- Interactive in-game recipe creation
+- Simple recipe editing and management
+- Support for custom blocks via ItemsAdder
 
+---
+
+All images and visual assets by **fxuy**  
+*Discord contact: fxuyapenas*

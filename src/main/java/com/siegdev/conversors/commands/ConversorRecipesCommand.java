@@ -4,6 +4,7 @@ import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.menus.RecipeMenu;
+import com.siegdev.conversors.utils.ItemBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,7 @@ public class ConversorRecipesCommand implements CommandExecutor {
     private final SavedItemsMap savedItemsMap;
     private final OpenedGuis openedGuis;
 
-    public ConversorRecipesCommand(LanguageManager languageManager, SavedItemsMap savedItemsMap, OpenedGuis openedGuis){
+    public ConversorRecipesCommand(LanguageManager languageManager, SavedItemsMap savedItemsMap, OpenedGuis openedGuis, ItemBuilder itemBuilder){
         this.languageManager = languageManager;
         this.savedItemsMap = savedItemsMap;
         this.openedGuis = openedGuis;
@@ -30,7 +31,7 @@ public class ConversorRecipesCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        var menu = new RecipeMenu(savedItemsMap);
+        var menu = new RecipeMenu(savedItemsMap,languageManager.getMessage("menu.recipes"));
         menu.openMenu(player);
         openedGuis.add(player,menu);
         return false;

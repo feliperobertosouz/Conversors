@@ -96,7 +96,7 @@ public final class Conversors extends JavaPlugin {
         this.savedItemsMap = new SavedItemsMap(storageJson);
         savedItemsMap.reload();
 
-        this.openedGuis = new OpenedGuis(this.itemBuilder);
+        this.openedGuis = new OpenedGuis();
     }
 
     private void loadLanguage(){
@@ -112,10 +112,10 @@ public final class Conversors extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CreationMenuListener(openedGuis,chatListener,storageJson,languageManager,savedItemsMap),this);
         getServer().getPluginManager().registerEvents(chatListener,this);
         getServer().getPluginManager().registerEvents(new BlockListener(itemBuilder,languageManager), this);
-        getServer().getPluginManager().registerEvents(new BlockInteractionListener(itemBuilder, openedGuis),this);
-        getServer().getPluginManager().registerEvents(new ConvertMenuListener(openedGuis,savedItemsMap), this);
-        getServer().getPluginManager().registerEvents(new RecipesMenuListener(openedGuis,savedItemsMap),this);
-        getServer().getPluginManager().registerEvents(new RecipeMenuViewListener(openedGuis,storageJson, savedItemsMap),this);
+        getServer().getPluginManager().registerEvents(new BlockInteractionListener(itemBuilder, openedGuis, languageManager),this);
+        getServer().getPluginManager().registerEvents(new ConvertMenuListener(openedGuis,savedItemsMap,languageManager), this);
+        getServer().getPluginManager().registerEvents(new RecipesMenuListener(openedGuis,savedItemsMap, languageManager),this);
+        getServer().getPluginManager().registerEvents(new RecipeMenuViewListener(openedGuis,storageJson, savedItemsMap,languageManager,itemBuilder),this);
     }
 
     private void registerCommands(){
@@ -123,7 +123,7 @@ public final class Conversors extends JavaPlugin {
         getCommand("conversor-creation").setExecutor(new ConversorCommand(storageJson,savedItemsMap,openedGuis,itemBuilder,languageManager));
         getCommand("conversor-get").setExecutor(new GetConversorCommand(itemBuilder, languageManager));
         getCommand("conversor-reloadrecipes").setExecutor(new ConversorReloadRecipesCommand(languageManager,savedItemsMap));
-        getCommand("conversor-recipes").setExecutor(new ConversorRecipesCommand(languageManager,savedItemsMap,openedGuis));
+        getCommand("conversor-recipes").setExecutor(new ConversorRecipesCommand(languageManager,savedItemsMap,openedGuis, itemBuilder));
         getCommand("conversor-reload").setExecutor(new ConversorReloadCommand(this));
     }
 
@@ -133,12 +133,12 @@ public final class Conversors extends JavaPlugin {
         getLogger().info("Loading itemsAdder support");
         try {
             Class<?> itemsAdderClass = Class.forName("dev.lone.itemsadder.api.ItemsAdder");
-            getLogger().info("Classe ItemsAdder encontrada!");
+            getLogger().info("ItemsAdder loaded");
 
             var furnitureId = this.getConfig().getString("items-adder-block-id", "none");
-            getServer().getPluginManager().registerEvents(new IAFurnitureInteractionListener(furnitureId,openedGuis,itemBuilder), this);
+            getServer().getPluginManager().registerEvents(new IAFurnitureInteractionListener(furnitureId,openedGuis,itemBuilder, languageManager), this);
         } catch (ClassNotFoundException e) {
-            getLogger().warning("ItemsAdder não está instalado ou a classe não existe.");
+            getLogger().warning("ItemsAdder not found.");
         }
     }
 

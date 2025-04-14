@@ -33,8 +33,16 @@ public class LanguageManager {
 
     public String getMessage(String key)
     {
-        if(languageConfig == null)
+        var message = languageConfig.getString(key, null);
+        if(message == null){
+            Conversors.getInstance().getLogger().warning("translation message not found: " + key);
             return "notFound";
-        return languageConfig.getString(key,"notFound");
+        }
+
+        if(languageConfig == null){
+            return "notFound";
+        }
+
+        return message;
     }
 }

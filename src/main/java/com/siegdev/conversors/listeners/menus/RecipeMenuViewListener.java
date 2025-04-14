@@ -1,11 +1,13 @@
 package com.siegdev.conversors.listeners.menus;
 
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.configuration.StorageJson;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.menus.CreationMenu;
 import com.siegdev.conversors.menus.RecipeMenu;
 import com.siegdev.conversors.menus.RecipeViewMenu;
+import com.siegdev.conversors.utils.ItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,11 +19,15 @@ public class RecipeMenuViewListener implements Listener {
     private final OpenedGuis openedGuis;
     private final StorageJson storageJson;
     private final SavedItemsMap savedItemsMap;
+    private final LanguageManager languageManager;
+    private final ItemBuilder itemBuilder;
 
-    public RecipeMenuViewListener(OpenedGuis openedGuis, StorageJson storageJson, SavedItemsMap savedItemsMap){
+    public RecipeMenuViewListener(OpenedGuis openedGuis, StorageJson storageJson, SavedItemsMap savedItemsMap, LanguageManager languageManager, ItemBuilder itemBuilder){
         this.openedGuis = openedGuis;
         this.storageJson = storageJson;
         this.savedItemsMap = savedItemsMap;
+        this.languageManager = languageManager;
+        this.itemBuilder = itemBuilder;
     }
 
     @EventHandler
@@ -51,11 +57,10 @@ public class RecipeMenuViewListener implements Listener {
         int slot = event.getRawSlot();
 
         if(slot == 4){
-            player.sendMessage("abrindo edição");
 
             var view = (RecipeViewMenu) selectedMenu;
             var recipe = ((RecipeViewMenu) selectedMenu).getRecipe();
-            var creationMenu = new CreationMenu(openedGuis,recipe);
+            var creationMenu = new CreationMenu(openedGuis,itemBuilder,languageManager.getMessage("menu.edit"),languageManager.getMessage("menu.confirm"),languageManager.getMessage("menu.clear"),recipe);
             openedGuis.remove(player);
             creationMenu.openMenu(player);
         }
@@ -65,10 +70,10 @@ public class RecipeMenuViewListener implements Listener {
             var recipe = ((RecipeViewMenu) selectedMenu).getRecipe();
             var deleteStatus = storageJson.deleteJson(recipe.getRecipeId());
             if(!deleteStatus) {
-                player.sendMessage("Não foi possivel deletar a receita");
+                player.sendMessage(languageManager.getMessage("menu.delete.fail"));
                 return;
             }
-            player.sendMessage("Receita deletada com sucesso");
+            player.sendMessage(languageManager.getMessage("menu.delete.success"));
             savedItemsMap.reload();
             player.closeInventory();
 

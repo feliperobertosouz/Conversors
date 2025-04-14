@@ -1,5 +1,6 @@
 package com.siegdev.conversors.listeners;
 
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.menus.ConvertMenu;
 import com.siegdev.conversors.utils.ItemBuilder;
@@ -13,11 +14,13 @@ public class IAFurnitureInteractionListener implements Listener {
     private final String furnitureId;
     private final OpenedGuis openedGuis;
     private final ItemBuilder itemBuilder;
+    private final LanguageManager languageManager;
 
-    public IAFurnitureInteractionListener(String furnitureId, OpenedGuis openedGuis, ItemBuilder itemBuilder){
+    public IAFurnitureInteractionListener(String furnitureId, OpenedGuis openedGuis, ItemBuilder itemBuilder, LanguageManager languageManager){
         this.furnitureId = furnitureId;
         this.openedGuis = openedGuis;
         this.itemBuilder = itemBuilder;
+        this.languageManager = languageManager;
     }
 
     @EventHandler
@@ -29,8 +32,7 @@ public class IAFurnitureInteractionListener implements Listener {
         if(!furniture.equals(this.furnitureId))
             return;
 
-        player.sendMessage("você clicou em uma furniture valida como conversor");
-        var menu = new ConvertMenu(itemBuilder);
+        var menu = new ConvertMenu(itemBuilder, languageManager.getMessage("menu.convertor"), languageManager.getMessage("menu.confirm"));
         player.openInventory(menu.getMenu());
         openedGuis.add(player,menu);
     }

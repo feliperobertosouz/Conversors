@@ -42,7 +42,7 @@ public class ConversorCommand implements CommandExecutor {
         var createdMenu = openedGuis.getMenuFromPlayer(player);
 
         if (!(createdMenu instanceof CreationMenu)) {
-            var newMenu = new CreationMenu(openedGuis, itemBuilder);
+            var newMenu = new CreationMenu(openedGuis, itemBuilder,languageManager.getMessage("menu.creation"),languageManager.getMessage("menu.confirm"),languageManager.getMessage("menu.clear"));
             newMenu.openMenu(player);
             return true;
         }

@@ -11,12 +11,12 @@ public class RecipeViewMenu implements MenuPlugin{
 
     private ConversorRecipe recipe;
     Inventory menu;
-    public RecipeViewMenu(String recipeId, ConversorRecipe recipe){
-        menu = Bukkit.createInventory(null,9,"receita: " + recipeId);
+    public RecipeViewMenu(String recipeId, ConversorRecipe recipe, String menuName,String editItemName, String deleteItemName){
+        menu = Bukkit.createInventory(null,9,menuName + recipeId);
         menu.setItem(1, recipe.getInput());
         menu.setItem(7,recipe.getOutput());
-        menu.setItem(4, ItemBuilder.buildItem(Material.PAPER,"edit"));
-        menu.setItem(5, ItemBuilder.buildItem(Material.BARRIER, "excluir"));
+        menu.setItem(4, ItemBuilder.buildItem(Material.PAPER,editItemName));
+        menu.setItem(5, ItemBuilder.buildItem(Material.BARRIER, deleteItemName));
         this.recipe = recipe;
     }
     @Override

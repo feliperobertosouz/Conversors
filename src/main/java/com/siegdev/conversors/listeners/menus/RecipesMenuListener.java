@@ -1,5 +1,6 @@
 package com.siegdev.conversors.listeners.menus;
 
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.menus.RecipeMenu;
@@ -14,11 +15,13 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 public class RecipesMenuListener implements Listener {
     private final OpenedGuis openedGuis;
     private final SavedItemsMap savedItemsMap;
+    private final LanguageManager languageManager;
 
-    public RecipesMenuListener(OpenedGuis openedGuis, SavedItemsMap savedItemsMap)
+    public RecipesMenuListener(OpenedGuis openedGuis, SavedItemsMap savedItemsMap, LanguageManager languageManager)
     {
         this.openedGuis = openedGuis;
         this.savedItemsMap = savedItemsMap;
+        this.languageManager = languageManager;
     }
 
     @EventHandler
@@ -56,10 +59,10 @@ public class RecipesMenuListener implements Listener {
         String name = ChatColor.stripColor(clickedItem.getItemMeta().getItemName());
         var recipe = savedItemsMap.getRecipeByRecipeName(name);
         if(recipe == null){
-            player.sendMessage("não foi possivel encontrar a receita");
+            player.sendMessage(languageManager.getMessage("recipe.notfound"));
             return;
         }
-        var newMenu = new RecipeViewMenu(recipe.getRecipeId(),recipe);
+        var newMenu = new RecipeViewMenu(recipe.getRecipeId(),recipe,languageManager.getMessage("menu.recipe.view"),languageManager.getMessage("menu.edit"),languageManager.getMessage("menu.deletion"));
         openedGuis.remove(player);
         newMenu.openMenu(player);
         openedGuis.add(player,newMenu);

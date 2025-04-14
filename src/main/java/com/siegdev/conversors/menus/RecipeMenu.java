@@ -1,5 +1,6 @@
 package com.siegdev.conversors.menus;
 
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,8 +12,9 @@ public class RecipeMenu implements MenuPlugin{
 
     private Inventory menu;
     private final SavedItemsMap savedItemsMap;
-    public RecipeMenu(SavedItemsMap savedItemsMap){
-        this.menu = Bukkit.createInventory(null, 54,"coming soon");
+
+    public RecipeMenu(SavedItemsMap savedItemsMap, String menuTitle){
+        this.menu = Bukkit.createInventory(null, 54,menuTitle);
         this.savedItemsMap = savedItemsMap;
         loadItems();
     }

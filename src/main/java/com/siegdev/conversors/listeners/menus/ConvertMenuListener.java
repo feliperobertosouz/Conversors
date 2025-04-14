@@ -1,5 +1,6 @@
 package com.siegdev.conversors.listeners.menus;
 
+import com.siegdev.conversors.configuration.LanguageManager;
 import com.siegdev.conversors.handlers.OpenedGuis;
 import com.siegdev.conversors.handlers.SavedItemsMap;
 import com.siegdev.conversors.menus.ConvertMenu;
@@ -13,11 +14,13 @@ import org.bukkit.inventory.ItemStack;
 public class ConvertMenuListener implements Listener {
     private final OpenedGuis openedGuis;
     private final SavedItemsMap savedItemsMap;
+    private final LanguageManager languageManager;
 
-    public ConvertMenuListener(OpenedGuis openedGuis, SavedItemsMap savedItemsMap)
+    public ConvertMenuListener(OpenedGuis openedGuis, SavedItemsMap savedItemsMap, LanguageManager languageManager)
     {
         this.openedGuis = openedGuis;
         this.savedItemsMap = savedItemsMap;
+        this.languageManager = languageManager;
     }
 
     @EventHandler
@@ -78,7 +81,6 @@ public class ConvertMenuListener implements Listener {
         }
 
         if(slot == 4){
-            player.sendMessage("Executando conversão");
             var input = top.getItem(1);
 
             if(input == null)
@@ -87,7 +89,7 @@ public class ConvertMenuListener implements Listener {
 
             var output = top.getItem(7);
             if(output != null){
-                player.sendMessage("retire os itens da saida!");
+                player.sendMessage(languageManager.getMessage("convert.outputfull"));
                 return;
             }
 
@@ -97,7 +99,7 @@ public class ConvertMenuListener implements Listener {
             ItemStack result = savedItemsMap.getResult(inputClone);
             if(result == null)
             {
-                player.sendMessage("não há o que converter");
+                player.sendMessage(languageManager.getMessage("convert.fail"));
                 return;
             }
             int amount = input.getAmount();
@@ -110,7 +112,6 @@ public class ConvertMenuListener implements Listener {
 
 
             top.setItem(7,result);
-            player.sendMessage("CONVERTIDO");
 
         }
     }

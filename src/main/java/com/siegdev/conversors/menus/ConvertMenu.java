@@ -10,14 +10,14 @@ public class ConvertMenu implements MenuPlugin{
 
     public Inventory inventory;
     public final ItemBuilder itemBuilder;
-    public ConvertMenu(ItemBuilder itemBuilder)
+    public ConvertMenu(ItemBuilder itemBuilder, String menuName, String confirmItemName)
     {
         this.itemBuilder = itemBuilder;
-        this.inventory = Bukkit.createInventory(null,9,"converter");
+        this.inventory = Bukkit.createInventory(null,9,menuName);
         inventory.setItem(0,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE," "));
         inventory.setItem(2,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE," "));
         inventory.setItem(3,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE," "));
-        inventory.setItem(4, itemBuilder.buildItem(Material.LIME_STAINED_GLASS_PANE,"confirmar!!"));
+        inventory.setItem(4, itemBuilder.buildItem(Material.LIME_STAINED_GLASS_PANE,confirmItemName));
         inventory.setItem(5,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE," "));
         inventory.setItem(6,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE," "));
         inventory.setItem(8,itemBuilder.buildItem(Material.BLACK_STAINED_GLASS_PANE," "));

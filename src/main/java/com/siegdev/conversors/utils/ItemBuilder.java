@@ -40,11 +40,11 @@ public class ItemBuilder {
         return this.defaultConversor.getType();
     }
 
-    public static void buildMenuTemplate(Inventory menu){
+    public void buildMenuTemplate(Inventory menu, String confirmItemName){
         menu.setItem(0,buildItem(Material.PAPER,"Id "));
         menu.setItem(2,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
         menu.setItem(3,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
-        menu.setItem(4, buildItem(Material.LIME_STAINED_GLASS_PANE,"confirmar!!"));
+        menu.setItem(4, buildItem(Material.LIME_STAINED_GLASS_PANE,confirmItemName));
         menu.setItem(5,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
         menu.setItem(6,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));
         menu.setItem(8,buildItem(Material.BLACK_STAINED_GLASS_PANE,""));

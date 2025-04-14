@@ -64,6 +64,11 @@ public class CreationMenuListener implements Listener {
             player.closeInventory();
             chatListener.playersMessage.add(player);
         }
+        else if(slot == 5)
+        {
+            openedGuis.remove(player);
+            player.closeInventory();
+        }
         else if(slot == 4)
         {
             var input = top.getItem(1);
@@ -104,13 +109,10 @@ public class CreationMenuListener implements Listener {
                 savedItemsMap.reload();
             } catch (IOException e) {
                 player.sendMessage(languageManager.getMessage("creation.fail"));
-                throw new RuntimeException("erro ao salvar receita " + e);
+                throw new RuntimeException("fail to save recipe " + e);
             }
 
         }
-
-
-
     }
 
     @EventHandler

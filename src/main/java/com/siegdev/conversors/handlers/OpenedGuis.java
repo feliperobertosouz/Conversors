@@ -10,10 +10,8 @@ import java.util.Map;
 
 public class OpenedGuis {
     private final Map<Player, MenuPlugin> openGUIS;
-    private final ItemBuilder itemBuilder;
-    public OpenedGuis(ItemBuilder itemBuilder){
+    public OpenedGuis(){
         this.openGUIS = new HashMap<>();
-        this.itemBuilder = itemBuilder;
     }
 
     public void add(Player player, MenuPlugin menu)
@@ -35,17 +33,6 @@ public class OpenedGuis {
     public MenuPlugin getMenuFromPlayer(Player player)
     {
         return openGUIS.get(player);
-    }
-
-    public MenuPlugin getMenuFromPlayerOrCreate(Player player)
-    {
-        if(openGUIS.containsKey(player))
-            return openGUIS.get(player);
-
-        var menu = new CreationMenu(this,itemBuilder);
-        menu.openMenu(player);
-        openGUIS.put(player,menu);
-        return menu;
     }
 
     public void printOponenedMenus()
