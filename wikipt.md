@@ -64,8 +64,3 @@ use o menu de visualizar receita, clique em editar e depois mude as coisas no me
 
 ## Suporte para itemsAdder
 dentro de config.yml mude items-adder para true, lembre-se de colocar em items-adder-block-id o id com namespace da sua furniture, serve apenas para furnitures# Conversors
-![conversors banner](imagesReadme/conversors-icon.png)
-
-![conversors banner](imagesReadme/conversos-banner.png)
-
-all credits to fxuy to images (discord contact: fxuyapenas)
